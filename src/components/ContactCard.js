@@ -11,7 +11,7 @@ const CardContact = (props) => {
                 <div className="header"> {name}</div>
                 <div> {email}</div>
             </div>
-            <img className="ui avatar image" src={bin} alt="user"/>
+            <img className="ui avatar image"  onClick={() => {props.clickHandler(id)}} src={bin} alt="user"/>
         </div>
     )
 

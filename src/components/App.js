@@ -1,8 +1,11 @@
 import React,{useState,useEffect} from "react";
+import { v4 as uuid } from "uuid";
 import './App.css'
+import {BrowserRouter as Router, Switch, Route, Routes} from "react-router-dom";
 import Header from "./Header"
 import ContactList from "./ContactList"
 import AddContact from "./AddContact"
+
 
 function App() {
     const LOCAL_STORAGE_KEY = "contacts"
@@ -10,7 +13,16 @@ function App() {
 
     const addContactHandler = (contact) => {
         console.log(contact)
-        setContacts([...contacts, contact]);
+        setContacts([...contacts,{id: uuid(), ...contact}]);
+    }
+
+    const removeContactHandler = (id) => {
+        const newContactsList = contacts.filter((contact) => {
+            return contact.id !== id;
+        })
+
+        setContacts(newContactsList);
+
     }
 
     useEffect(()=> {
@@ -24,9 +36,16 @@ function App() {
 
   return (
     <div className="ui container">
-      <Header />
-      <AddContact addContactHandler = {addContactHandler}/>
-      <ContactList contacts={contacts}/>
+
+        <Routes>
+
+            <Header />
+
+            <Route path="/add" component={AddContact}/>
+            <Route path="/" component={ContactList}/>
+        </Routes>
+
+
     </div>
   );
 }
