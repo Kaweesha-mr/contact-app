@@ -1,7 +1,7 @@
-import React,{useState,useEffect} from "react";
-import { v4 as uuid } from "uuid";
+import React, {useEffect, useState} from "react";
+import {v4 as uuid} from "uuid";
 import './App.css'
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Header from "./Header"
 import ContactList from "./ContactList"
 import AddContact from "./AddContact"
@@ -9,11 +9,11 @@ import AddContact from "./AddContact"
 
 function App() {
     const LOCAL_STORAGE_KEY = "contacts"
-    const [contacts,setContacts] = useState([])
+    const [contacts, setContacts] = useState([])
 
     const addContactHandler = (contact) => {
         console.log(contact)
-        setContacts([...contacts,{id: uuid(), ...contact}]);
+        setContacts([...contacts, {id: uuid(), ...contact}]);
     }
 
     const removeContactHandler = (id) => {
@@ -25,27 +25,37 @@ function App() {
 
     }
 
-    useEffect(()=> {
-        localStorage.setItem(LOCAL_STORAGE_KEY,JSON.stringify(contacts))
-    },[contacts])
+    useEffect(() => {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts))
+    }, [contacts])
 
-    useEffect(()=> {
-       const retriveContacts =  JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-        if(!retriveContacts) setContacts(retriveContacts)
-    },[contacts])
+    useEffect(() => {
+        const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+        if (!retriveContacts) setContacts(retriveContacts)
+    }, [contacts])
 
-  return (
-    <div className="ui container">
+    return (
+        <div className="ui container">
 
-        <Router>
-            <Header />
-            <Route path="/add" component={AddContact}/>
-            <Route path="/" component={ContactList}/>
-        </Router>
+            <Router>
+
+                <Header/>
+
+                <Switch>
 
 
-    </div>
-  );
+                    <Route path="/" exact component={ContactList}/>
+                    <Route path="/add" component={AddContact}/>
+
+
+                </Switch>
+
+
+            </Router>
+
+
+        </div>
+    );
 }
 
 export default App;
