@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { v4 as uuid } from "uuid";
 import './App.css'
-import {BrowserRouter as Router, Switch, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Header from "./Header"
 import ContactList from "./ContactList"
 import AddContact from "./AddContact"
@@ -37,13 +37,11 @@ function App() {
   return (
     <div className="ui container">
 
-        <Routes>
-
+        <Router>
             <Header />
-
             <Route path="/add" component={AddContact}/>
             <Route path="/" component={ContactList}/>
-        </Routes>
+        </Router>
 
 
     </div>
