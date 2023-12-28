@@ -9,15 +9,7 @@ const ContactList = (props) => {
         props.getContactId(id)
     }
 
-    const contacts = [
-        {
-        id: "1",
-        name: "Dipesh",
-        email: "cs@email.com"
-        }
-
-    ]
-    const renderContactList = contacts.map((contact) => {
+    const renderContactList = props.contacts.map((contact) => {
         return(
             <ContactCard contacts={contact} clickHandler={deleteContactHandler} key={ contact.id}/>
         )
@@ -29,10 +21,8 @@ const ContactList = (props) => {
             <h2>
                 Contact List
                 <Link to="/add">
-
                     <button className="ui button blue right"> ADD contact</button>
                 </Link>
-
             </h2>
 
             <div className="ui celled list">
